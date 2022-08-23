@@ -39,7 +39,7 @@ async function startScript() {
 
 startScript()
     .then(() => {
-        console.log("\nOperations have been ended\n\n");
+        console.log("\nTerminating all operations.\n\n");
         process.exit(0);
     })
     .catch((error) => {
