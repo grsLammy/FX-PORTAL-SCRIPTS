@@ -34,8 +34,8 @@ const depositERC20Token = async () => {
 
         // Fetch your smart contract ABI data from the blockchain
         // Your smart contract must be deployed and verified
-        const abiData = await fetchAbiDataGoerli(fxERC20RootTunnel_address);
-        const fxERC20RootTunnel_ABI = abiData.result;
+        const fxERC20RootTunnel_ABIData = await fetchAbiDataGoerli(fxERC20RootTunnel_address);
+        const fxERC20RootTunnel_ABI = fxERC20RootTunnel_ABIData.result;
 
         // Get contract for FxERC20RootTunnel
         const fxERC20RootTunnel_contract = new ethers.Contract(
@@ -45,10 +45,20 @@ const depositERC20Token = async () => {
         );
 
         // Approve rootToken to be spend by FxERC20RootTunnel contract
-        const rootToken_address = rootToken;
-        const rootToken_ABI = await fetchAbiDataGoerli(rootToken_address).result;
+        const rootToken_address = config.RootERC20Token;
+
+        // Fetch your smart contract ABI data from the blockchain
+        // Your smart contract must be deployed and verified
+        const rootToken_ABIData = await fetchAbiDataGoerli(rootToken_address).result;
+        const rootToken_ABI = rootToken_ABIData.result;
+
+        // Get contract for RootERC20Token
         const rootToken_contract = new ethers.Contract(rootToken_address, rootToken_ABI, provider);
+
+        // Connect wallet to contract
         const rootTokenConnect = rootToken_contract.connect(signer);
+
+        // Call approve function on RootERC20Token contract
         const txApprove = await rootTokenConnect.approve(fxERC20RootTunnel_address, amount);
         await txApprove.wait();
         const txHashApprove = tx.hash;
@@ -57,11 +67,15 @@ const depositERC20Token = async () => {
 
         // Connect wallet to contract
         const fxERC20RootTunnel = fxERC20RootTunnel_contract.connect(signer);
+
+        // Call deposit function on FxERC20RootTunnel contract
         const tx = await fxERC20RootTunnel.deposit(rootToken, user, amount, "");
         await tx.wait();
+
         const txHash = tx.hash;
         console.log("\nTransaction Hash: ", txHash);
         console.log(`Transaction Details: https://goerli.etherscan.io/tx/${txHash}`);
+        console.log("\nDeposited Successfully!");
         return;
     } catch (error) {
         console.log("Error in depositERC20Token", error);
