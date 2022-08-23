@@ -64,13 +64,14 @@ const withdrawERC20Token = async () => {
             maxPriorityFeePerGas: maxPriorityFee,
         });
         await tx.wait();
-        const txHash = tx.hash;
-        console.log("\nTransaction Hash: ", txHash);
-        console.log(`Transaction Details: https://mumbai.polygonscan.com/tx/${txHash}`);
-        console.log("\nWithdrawal Successful");
+        const BURN_HASH = tx.hash;
+        console.log("\nTransaction Hash: ", BURN_HASH);
+        console.log(`Transaction Details: https://mumbai.polygonscan.com/tx/${BURN_HASH}`);
+        console.log("\nToken Withdrawn Successfully!\n");
         console.log("\nGenerating Transaction Burn Proof...");
 
-        const proof = await burnProof(txHash);
+        const SEND_MESSAGE_EVENT_SIG = config.ERC20_SEND_MESSAGE_EVENT_SIG;
+        const proof = await burnProof(BURN_HASH, SEND_MESSAGE_EVENT_SIG);
 
         await receiveMessage(proof);
 

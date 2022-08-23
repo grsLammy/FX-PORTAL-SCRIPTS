@@ -2,7 +2,7 @@
 
 const { POSClient, use } = require("@maticnetwork/maticjs");
 const { Web3ClientPlugin } = require("@maticnetwork/maticjs-ethers");
-const { providers, Wallet } = require("ethers");
+const { Wallet } = require("ethers");
 
 use(Web3ClientPlugin);
 
@@ -16,7 +16,7 @@ const childProvider = new ethers.providers.InfuraProvider("maticmum", projectID)
 
 const posClient = new POSClient();
 
-async function burnProof(burnHash) {
+async function burnProof(BURN_HASH, SEND_MESSAGE_EVENT_SIG) {
     // initialization of posClient using matic js lib
 
     await posClient.init({
@@ -38,8 +38,7 @@ async function burnProof(burnHash) {
 
     // interact to exit manager using withdraw manager to get burn proof
     const exit_manager = posClient.withdrawManager.exitManager;
-    const SIG = "0x8c5261668696ce22758910d05bab8f186d6eb247ceac2af2e82c7dc17669b036";
-    const proof = await exit_manager.buildPayloadForExit(burnHash, SIG);
+    const proof = await exit_manager.buildPayloadForExit(BURN_HASH, SEND_MESSAGE_EVENT_SIG);
     return proof;
 }
 
