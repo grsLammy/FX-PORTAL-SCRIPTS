@@ -2,9 +2,13 @@ const { ethers } = require("ethers");
 const ps = require("prompt-sync");
 const prompt = ps();
 const config = require("../../../config");
-const { fetchAbiDataPolygon } = require("../../../utils/fetchAbi");
-const { fetchGasPrice } = require("../../../utils/fetchGasPrice");
+const { fetchAbiDataPolygon } = require("../../utils/fetchAbi");
+const { fetchGasPrice } = require("../../utils/fetchGasPrice");
 require("dotenv").config();
+
+const projectID = process.env.INFURA_PROJECT_ID;
+const pKey = process.env.PRIVATE_KEY_POLYGON;
+const walletAddress = process.env.PUBLIC_KEY;
 
 const withdrawERC20Token = async () => {
     try {

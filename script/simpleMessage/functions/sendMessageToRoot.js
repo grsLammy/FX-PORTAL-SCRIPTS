@@ -1,9 +1,9 @@
 const { ethers } = require("ethers");
 const ps = require("prompt-sync");
 const prompt = ps();
-const config = require("../../../config");
-const { fetchAbiDataPolygon } = require("../../../utils/fetchAbi");
-const { fetchGasPrice } = require("../../../utils/fetchGasPrice");
+const config = require("../../config");
+const { fetchAbiDataPolygon } = require("../../utils/fetchAbi");
+const { fetchGasPrice } = require("../../utils/fetchGasPrice");
 require("dotenv").config();
 
 const projectID = process.env.INFURA_PROJECT_ID;
