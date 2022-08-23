@@ -4,6 +4,8 @@ const prompt = ps();
 const config = require("../../../config");
 const { fetchAbiDataPolygon } = require("../../utils/fetchAbi");
 const { fetchGasPrice } = require("../../utils/fetchGasPrice");
+const { burnProof } = require("../../utils/burnProof");
+const receiveMessage = require("./receiveMessage");
 require("dotenv").config();
 
 const projectID = process.env.INFURA_PROJECT_ID;
@@ -65,6 +67,12 @@ const withdrawERC20Token = async () => {
         const txHash = tx.hash;
         console.log("\nTransaction Hash: ", txHash);
         console.log(`Transaction Details: https://mumbai.polygonscan.com/tx/${txHash}`);
+        console.log("\nWithdrawal Successful");
+        console.log("\nGenerating Transaction Burn Proof...");
+
+        const proof = await burnProof(txHash);
+
+        await receiveMessage(proof);
 
         return;
     } catch (error) {
