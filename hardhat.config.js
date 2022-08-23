@@ -5,7 +5,16 @@ require("solidity-coverage");
 require("@nomiclabs/hardhat-waffle");
 
 const config = {
-    solidity: "0.8.0",
+    solidity: {
+        compilers: [
+            {
+                version: "0.8.0",
+            },
+            {
+                version: "0.8.1",
+            },
+        ],
+    },
     networks: {
         goerli: {
             url: `https://goerli.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
@@ -30,12 +39,15 @@ const config = {
         user: 3,
         user1: 4,
     },
+    paths: {
+        sources: "src",
+    },
     gasReporter: {
         enabled: process.env.REPORT_GAS !== undefined,
         currency: "USD",
     },
     etherscan: {
-        apiKey: process.env.EXPLORER_API_KEY_POLYGON || "",
+        apiKey: process.env.ETHEREUM_EXPLORER_API_KEY || "",
     },
 };
 
