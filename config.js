@@ -9,6 +9,8 @@ const config = {
     FxMintableERC20ChildTunnel: "0xA2C7eBEf68B444056b4A39C2CEC23844275C56e9",
     FxStateRootTunnel: "0x4135Bf055369fE3B9B20154C12d60c4744bA5f3C",
     FxStateChildTunnel: "0xEd98A2B91817543b9d5ef75Ff4981aac47795b9e",
+    RootERC20Token: "0x40507112Fd2a9d24A34bD3347ED99Bc36d9D466e",
+    RootERC721Token: "0x5F1f8dF0a2FE5AD6BB2f5EF8C9CC5bE73E07823C",
 };
 
 module.exports = config;
