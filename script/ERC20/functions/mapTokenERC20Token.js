@@ -43,6 +43,7 @@ const depositERC20Token = async () => {
         const txHash = tx.hash;
         console.log("\nTransaction Hash: ", txHash);
         console.log(`Transaction Details: https://goerli.etherscan.io/tx/${txHash}`);
+        console.log("\nToken Mapped successfully");
         return;
     } catch (error) {
         console.log("Error in depositERC20Token", error);
