@@ -44,4 +44,4 @@ async function burnProof(burnHash) {
     return proof;
 }
 
-module.exports = burnProof;
+module.exports = { burnProof };
