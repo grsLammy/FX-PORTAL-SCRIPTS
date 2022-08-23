@@ -37,12 +37,23 @@ const depositERC20Token = async () => {
         const abiData = await fetchAbiDataGoerli(fxERC20RootTunnel_address);
         const fxERC20RootTunnel_ABI = abiData.result;
 
-        // Get contract for fxERC20RootTunnel
+        // Get contract for FxERC20RootTunnel
         const fxERC20RootTunnel_contract = new ethers.Contract(
             fxERC20RootTunnel_address,
             fxERC20RootTunnel_ABI,
             provider
         );
+
+        // Approve rootToken to be spend by FxERC20RootTunnel contract
+        const rootToken_address = rootToken;
+        const rootToken_ABI = await fetchAbiDataGoerli(rootToken_address).result;
+        const rootToken_contract = new ethers.Contract(rootToken_address, rootToken_ABI, provider);
+        const rootTokenConnect = rootToken_contract.connect(signer);
+        const txApprove = await rootTokenConnect.approve(fxERC20RootTunnel_address, amount);
+        await txApprove.wait();
+        const txHashApprove = tx.hash;
+        console.log("\nTransaction Hash: ", txHashApprove);
+        console.log(`Transaction Details: https://goerli.etherscan.io/tx/${txHashApprove}`);
 
         // Connect wallet to contract
         const fxERC20RootTunnel = fxERC20RootTunnel_contract.connect(signer);
