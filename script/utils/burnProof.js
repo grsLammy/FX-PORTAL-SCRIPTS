@@ -13,7 +13,6 @@ const projectID = process.env.INFURA_PROJECT_ID;
 // connect provider to interact with eth and polygon chain
 const parentProvider = new ethers.providers.InfuraProvider("goerli", projectID);
 const childProvider = new ethers.providers.InfuraProvider("maticmum", projectID);
-const privateKey = "private key"; // only for testing purpose, use env for real development
 
 const posClient = new POSClient();
 
