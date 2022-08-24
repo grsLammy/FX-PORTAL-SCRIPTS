@@ -23,6 +23,7 @@ const withdrawERC20Token = async () => {
         const amount = prompt("Enter the amount of token that you want to withdraw: ");
         if (!amount) return console.log("Message cannot be null");
         if (isNumeric(amount) === false) return console.log("Invalid input");
+        const amountInWEI = amount * 1e18;
 
         console.log("\n-----------------------------------------");
         console.log(`INITIATING TOKEN WITHDRAWAL PROCESS`);
@@ -57,13 +58,17 @@ const withdrawERC20Token = async () => {
         // Connect wallet to contract
         const fxERC20ChildTunnel = fxERC20ChildTunnel_contract.connect(signer);
 
-        const estimatedGasLimit = await fxERC20ChildTunnel.estimateGas.withdraw(childToken, amount, {
-            gasLimit: 14_999_999,
-            nonce: nonce,
-            maxFeePerGas: maxFee,
-            maxPriorityFeePerGas: maxPriorityFee,
-        });
-        const tx = await fxERC20ChildTunnel.withdraw(childToken, amount, {
+        const estimatedGasLimit = await fxERC20ChildTunnel.estimateGas.withdraw(
+            childToken,
+            amountInWEI.toString(),
+            {
+                gasLimit: 14_999_999,
+                nonce: nonce,
+                maxFeePerGas: maxFee,
+                maxPriorityFeePerGas: maxPriorityFee,
+            }
+        );
+        const tx = await fxERC20ChildTunnel.withdraw(childToken, amountInWEI.toString(), {
             gasLimit: estimatedGasLimit,
             nonce: nonce,
             maxFeePerGas: maxFee,
