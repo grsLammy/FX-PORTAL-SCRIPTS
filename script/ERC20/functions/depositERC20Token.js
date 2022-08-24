@@ -52,9 +52,6 @@ const depositERC20Token = async () => {
         // Your smart contract must be deployed and verified
         const rootToken_ABIData = await fetchAbiDataGoerli(rootToken_address);
         const rootToken_ABI = rootToken_ABIData.result;
-        console.log("Root Token Address: ", rootToken_address);
-        console.log("Root Token ABI: ", rootToken_ABI);
-        console.log("Provider: ", provider);
 
         // Get contract for RootERC20Token
         const rootToken_contract = new ethers.Contract(rootToken_address, rootToken_ABI, provider);
@@ -65,7 +62,7 @@ const depositERC20Token = async () => {
         // Call approve function on RootERC20Token contract
         const txApprove = await rootTokenConnect.approve(fxERC20RootTunnel_address, amount);
         await txApprove.wait();
-        const txHashApprove = tx.hash;
+        const txHashApprove = txApprove.hash;
         console.log("\nTransaction Hash: ", txHashApprove);
         console.log(`Transaction Details: https://goerli.etherscan.io/tx/${txHashApprove}`);
 

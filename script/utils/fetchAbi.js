@@ -8,9 +8,6 @@ async function fetchAbiDataGoerli(contractAddress) {
     // https://api-testnet.polygonscan.com
     // https://api.polygonscan.com
     try {
-        console.log(
-            `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${ethereumExplorerApiKey}`
-        );
         return (
             await axios.get(
                 `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${ethereumExplorerApiKey}`
