@@ -9,8 +9,8 @@ const config = {
     FxMintableERC20ChildTunnel: "0xA2C7eBEf68B444056b4A39C2CEC23844275C56e9",
     FxStateRootTunnel: "0x4135Bf055369fE3B9B20154C12d60c4744bA5f3C",
     FxStateChildTunnel: "0xEd98A2B91817543b9d5ef75Ff4981aac47795b9e",
-    RootERC20Token: "0x40507112Fd2a9d24A34bD3347ED99Bc36d9D466e", // change this to your deployed ERC20 sample contract
-    RootERC721Token: "0x5F1f8dF0a2FE5AD6BB2f5EF8C9CC5bE73E07823C",
+    RootERC20Token: "0x22B4D7Ca868fe7EC7Ae5aF041522ea528EA3820D", // change this to your deployed ERC20 sample token contract
+    RootERC721Token: "0x5F1f8dF0a2FE5AD6BB2f5EF8C9CC5bE73E07823C", // change this to your deployed ERC721 sample token contract
     RootUser: "0xB75D71adFc8E5F7c58eA89c22C3B70BEA84A718d", // change this to your user wallet address at Goerli
     ChildUser: "0xfDcDF3cFa272c67C17824FC792C9fF798C98eDed", // change this to your user wallet address at Mumbai
 };
