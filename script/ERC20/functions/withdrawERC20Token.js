@@ -14,11 +14,11 @@ const walletAddress = process.env.PUBLIC_KEY;
 
 const withdrawERC20Token = async () => {
     try {
-        const childToken = prompt("Enter the address of your Root token: ");
+        const childToken = prompt("Enter the address of your child token: ");
         if (!childToken) return console.log("Message cannot be null");
         if (childToken.length !== 42) return console.log(`${childToken} is not a valid address`);
 
-        const amount = prompt("Enter the amount of token that you want to deposit: ");
+        const amount = prompt("Enter the amount of token that you want to withdraw: ");
         if (!amount) return console.log("Message cannot be null");
         if (isNumeric(amount) === false) return console.log("Invalid input");
 

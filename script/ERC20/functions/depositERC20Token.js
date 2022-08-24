@@ -4,6 +4,7 @@ const prompt = ps();
 const config = require("../../../config");
 const { fetchAbiDataGoerli } = require("../../utils/fetchAbi");
 const isNumeric = require("../../utils/isNumeric");
+const BigNumber = require("bignumber.js");
 require("dotenv").config();
 
 const projectID = process.env.INFURA_PROJECT_ID;
@@ -19,9 +20,13 @@ const depositERC20Token = async () => {
         if (!user) return console.log("Message cannot be null");
         if (user.length !== 42) return console.log(`${user} is not a valid address`);
 
-        const amount = prompt("Enter the amount of token that you want to deposit: ");
-        if (!amount) return console.log("Message cannot be null");
-        if (isNumeric(amount) === false) return console.log("Invalid input");
+        const amountInWEI = prompt("Enter the amount of token that you want to deposit: ");
+        if (!amountInWEI) return console.log("Message cannot be null");
+        if (isNumeric(amountInWEI) === false) return console.log("Invalid input");
+        const amount = amountInWEI * 1e18;
+        console.log("\n-----------------------------------------");
+        console.log(`INITIATING TOKEN APPROVAL PROCESS`);
+        console.log("-----------------------------------------\n");
 
         // Using Infura provider to connect to the goerli chain
         const provider = new ethers.providers.InfuraProvider("goerli", projectID);
@@ -32,18 +37,6 @@ const depositERC20Token = async () => {
 
         // Contract address for FxERC20RootTunnel
         const fxERC20RootTunnel_address = config.FxERC20RootTunnel;
-
-        // Fetch your smart contract ABI data from the blockchain
-        // Your smart contract must be deployed and verified
-        const fxERC20RootTunnel_ABIData = await fetchAbiDataGoerli(fxERC20RootTunnel_address);
-        const fxERC20RootTunnel_ABI = fxERC20RootTunnel_ABIData.result;
-
-        // Get contract for FxERC20RootTunnel
-        const fxERC20RootTunnel_contract = new ethers.Contract(
-            fxERC20RootTunnel_address,
-            fxERC20RootTunnel_ABI,
-            provider
-        );
 
         // Approve rootToken to be spend by FxERC20RootTunnel contract
         const rootToken_address = config.RootERC20Token;
@@ -60,17 +53,34 @@ const depositERC20Token = async () => {
         const rootTokenConnect = rootToken_contract.connect(signer);
 
         // Call approve function on RootERC20Token contract
-        const txApprove = await rootTokenConnect.approve(fxERC20RootTunnel_address, amount);
+        const txApprove = await rootTokenConnect.approve(fxERC20RootTunnel_address, amount.toString());
         await txApprove.wait();
         const txHashApprove = txApprove.hash;
         console.log("\nTransaction Hash: ", txHashApprove);
         console.log(`Transaction Details: https://goerli.etherscan.io/tx/${txHashApprove}`);
+        console.log(`\nTokens approved successfully\n`);
+
+        console.log("\n-----------------------------------------");
+        console.log("INITIATING TOKEN DEPOSIT PROCESS");
+        console.log("-----------------------------------------\n");
+
+        // Fetch your smart contract ABI data from the blockchain
+        // Your smart contract must be deployed and verified
+        const fxERC20RootTunnel_ABIData = await fetchAbiDataGoerli(fxERC20RootTunnel_address);
+        const fxERC20RootTunnel_ABI = fxERC20RootTunnel_ABIData.result;
+
+        // Get contract for FxERC20RootTunnel
+        const fxERC20RootTunnel_contract = new ethers.Contract(
+            fxERC20RootTunnel_address,
+            fxERC20RootTunnel_ABI,
+            provider
+        );
 
         // Connect wallet to contract
         const fxERC20RootTunnel = fxERC20RootTunnel_contract.connect(signer);
 
         // Call deposit function on FxERC20RootTunnel contract
-        const tx = await fxERC20RootTunnel.deposit(rootToken, user, amount, "");
+        const tx = await fxERC20RootTunnel.deposit(rootToken, user, amount.toString(), 0x0);
         await tx.wait();
 
         const txHash = tx.hash;
