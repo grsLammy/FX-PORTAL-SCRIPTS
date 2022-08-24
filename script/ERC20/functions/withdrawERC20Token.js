@@ -3,7 +3,6 @@ const prompt = ps();
 const { ethers } = require("ethers");
 const config = require("../../../config");
 const isNumeric = require("../../utils/isNumeric");
-const { withdrawExit } = require("../../utils/withdrawExit");
 const { fetchGasPrice } = require("../../utils/fetchGasPrice");
 const { fetchAbiDataPolygon } = require("../../utils/fetchAbi");
 
@@ -78,13 +77,6 @@ const withdrawERC20Token = async () => {
         console.log("\nTransaction Hash: ", burnTxHash);
         console.log(`Transaction Details: https://mumbai.polygonscan.com/tx/${burnTxHash}`);
         console.log("\nToken Withdrawn Successfully!\n");
-
-        console.log("\n-----------------------------------------");
-        console.log("GENERATING TRANSACTION BURN PROOF");
-        console.log("-----------------------------------------\n");
-
-        const proof = await withdrawExit(burnTxHash);
-        console.log("\n Burn proof: ", proof);
 
         return;
     } catch (error) {

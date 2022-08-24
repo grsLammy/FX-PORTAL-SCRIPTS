@@ -19,7 +19,7 @@ const depositERC20Token = async () => {
         if (!user) return console.log("Message cannot be null");
         if (user.length !== 42) return console.log(`${user} is not a valid address`);
 
-        const amount = prompt("Enter the amountInWEI of token that you want to deposit: ");
+        const amount = prompt("Enter the amount of token that you want to deposit: ");
         if (!amount) return console.log("Message cannot be null");
         if (isNumeric(amount) === false) return console.log("Invalid input");
         const amountInWEI = amount * 1e18;

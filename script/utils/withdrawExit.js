@@ -2,8 +2,7 @@ const { getFxPortalClient } = require("./FxPortalClient");
 const config = require("../../config");
 
 const token = config.RootERC20Token;
-const burnTxHash = "0x7737b9bcfebf88403beaa6440abf2b061f0491c8e2b867be704d90c88bc800d5";
-async function withdrawExit() {
+async function withdrawExit(burnTxHash) {
     // initiate fxClient
     console.log("token: ", token);
     const fxClient = await getFxPortalClient();
@@ -16,12 +15,4 @@ async function withdrawExit() {
     console.log("Transaction Hash:", txHash);
 }
 
-withdrawExit()
-    .then(() => {
-        console.log("\n\n---------- ENDING WITHDRAWEXIT PROCESS ----------.\n\n");
-        process.exit(0);
-    })
-    .catch((error) => {
-        console.error(error);
-        process.exit(1);
-    });
+module.exports = { withdrawExit };
