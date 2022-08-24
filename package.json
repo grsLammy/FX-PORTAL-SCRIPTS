@@ -12,8 +12,10 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@fxportal/maticjs-fxportal": "^1.1.1",
         "@maticnetwork/maticjs": "^3.4.0",
         "@maticnetwork/maticjs-ethers": "^1.0.2",
+        "@maticnetwork/maticjs-web3": "^1.0.1",
         "@openzeppelin/contracts": "^4.7.3",
         "dotenv": "^16.0.1"
     },
