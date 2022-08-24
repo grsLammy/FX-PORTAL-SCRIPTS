@@ -1,11 +1,13 @@
-const { ethers } = require("ethers");
 const ps = require("prompt-sync");
 const prompt = ps();
+const { ethers } = require("ethers");
 const config = require("../../../config");
-const { fetchAbiDataPolygon } = require("../../utils/fetchAbi");
-const { fetchGasPrice } = require("../../utils/fetchGasPrice");
-const { burnProof } = require("../../utils/burnProof");
 const receiveMessage = require("./receiveMessage");
+const isNumeric = require("../../utils/isNumeric");
+const { burnProof } = require("../../utils/burnProof");
+const { fetchGasPrice } = require("../../utils/fetchGasPrice");
+const { fetchAbiDataPolygon } = require("../../utils/fetchAbi");
+
 require("dotenv").config();
 
 const projectID = process.env.INFURA_PROJECT_ID;
@@ -21,6 +23,10 @@ const withdrawERC20Token = async () => {
         const amount = prompt("Enter the amount of token that you want to withdraw: ");
         if (!amount) return console.log("Message cannot be null");
         if (isNumeric(amount) === false) return console.log("Invalid input");
+
+        console.log("\n-----------------------------------------");
+        console.log(`INITIATING TOKEN WITHDRAWAL PROCESS`);
+        console.log("-----------------------------------------\n");
 
         // Using Infura provider to connect to the goerli chain
         const provider = new ethers.providers.InfuraProvider("maticmum", projectID);
@@ -68,11 +74,18 @@ const withdrawERC20Token = async () => {
         console.log("\nTransaction Hash: ", BURN_HASH);
         console.log(`Transaction Details: https://mumbai.polygonscan.com/tx/${BURN_HASH}`);
         console.log("\nToken Withdrawn Successfully!\n");
-        console.log("\nGenerating Transaction Burn Proof...");
+
+        console.log("\n-----------------------------------------");
+        console.log("GENERATING TRANSACTION BURN PROOF");
+        console.log("-----------------------------------------\n");
 
         const SEND_MESSAGE_EVENT_SIG = config.ERC20_SEND_MESSAGE_EVENT_SIG;
         const proof = await burnProof(BURN_HASH, SEND_MESSAGE_EVENT_SIG);
+        console.log("\n Burn proof: ", proof);
 
+        console.log("\n-----------------------------------------");
+        console.log("SENDING THE BURN PROOF TO ROOT CHAIN");
+        console.log("-----------------------------------------\n");
         await receiveMessage(proof);
 
         return;

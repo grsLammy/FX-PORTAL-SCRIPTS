@@ -1,9 +1,9 @@
-const { ethers } = require("ethers");
+require("dotenv").config();
 const ps = require("prompt-sync");
 const prompt = ps();
+const { ethers } = require("ethers");
 const config = require("../../../config");
 const { fetchAbiDataGoerli } = require("../../utils/fetchAbi");
-require("dotenv").config();
 
 const projectID = process.env.INFURA_PROJECT_ID;
 const pKey = process.env.PRIVATE_KEY_GOERLI;
