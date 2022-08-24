@@ -14,15 +14,14 @@ async function withdrawExit() {
         if (!burnTxnHash) return console.log("Message cannot be null");
         //if (burnTxnHash.length !== 42) return console.log(`${burnTxnHash} is not a valid address`);
         // initiate fxClient
-        console.log("token: ", token);
         const fxClient = await getFxPortalClient();
-        console.log("FxClient: ", fxClient);
         const erc20Token = fxClient.erc20(token, true);
-        console.log("erc20Token: ", erc20Token);
         // execute transaction
         const txResult = await erc20Token.withdrawExit(burnTxnHash);
         const txHash = await txResult.getTransactionHash();
         console.log("Transaction Hash:", txHash);
+        console.log(`Transaction Details: https://goerli.etherscan.io/tx/${txHash}`);
+        console.log(`\nTokens unlocked on root chain successfully\n`);
     } catch (error) {
         console.log("Error at withdrawExit", error);
         process.exit(1);
