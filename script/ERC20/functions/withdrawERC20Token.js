@@ -2,9 +2,8 @@ const ps = require("prompt-sync");
 const prompt = ps();
 const { ethers } = require("ethers");
 const config = require("../../../config");
-const receiveMessage = require("./receiveMessage");
 const isNumeric = require("../../utils/isNumeric");
-const { burnProof } = require("../../utils/burnProof");
+const { withdrawExit } = require("../../utils/withdrawExit");
 const { fetchGasPrice } = require("../../utils/fetchGasPrice");
 const { fetchAbiDataPolygon } = require("../../utils/fetchAbi");
 
@@ -75,23 +74,17 @@ const withdrawERC20Token = async () => {
             maxPriorityFeePerGas: maxPriorityFee,
         });
         await tx.wait();
-        const BURN_HASH = tx.hash;
-        console.log("\nTransaction Hash: ", BURN_HASH);
-        console.log(`Transaction Details: https://mumbai.polygonscan.com/tx/${BURN_HASH}`);
+        const burnTxHash = tx.hash;
+        console.log("\nTransaction Hash: ", burnTxHash);
+        console.log(`Transaction Details: https://mumbai.polygonscan.com/tx/${burnTxHash}`);
         console.log("\nToken Withdrawn Successfully!\n");
 
         console.log("\n-----------------------------------------");
         console.log("GENERATING TRANSACTION BURN PROOF");
         console.log("-----------------------------------------\n");
 
-        const SEND_MESSAGE_EVENT_SIG = config.ERC20_SEND_MESSAGE_EVENT_SIG;
-        const proof = await burnProof(BURN_HASH, SEND_MESSAGE_EVENT_SIG);
+        const proof = await withdrawExit(burnTxHash);
         console.log("\n Burn proof: ", proof);
-
-        console.log("\n-----------------------------------------");
-        console.log("SENDING THE BURN PROOF TO ROOT CHAIN");
-        console.log("-----------------------------------------\n");
-        await receiveMessage(proof);
 
         return;
     } catch (error) {
