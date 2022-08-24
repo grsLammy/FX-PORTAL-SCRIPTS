@@ -1,7 +1,7 @@
 const { ethers } = require("ethers");
 const ps = require("prompt-sync");
 const prompt = ps();
-const config = require("../../config");
+const config = require("../../../config");
 const { fetchAbiDataGoerli } = require("../../utils/fetchAbi");
 require("dotenv").config();
 
@@ -14,7 +14,7 @@ const depositERC20Token = async () => {
         if (!rootToken) return console.log("Message cannot be null");
         if (rootToken.length !== 42) return console.log(`${rootToken} is not a valid address`);
 
-        const user = prompt("Enther the address of the user who can withdraw the token on child: ");
+        const user = prompt("Enter the address of the user who can withdraw the token on child: ");
         if (!user) return console.log("Message cannot be null");
         if (user.length !== 42) return console.log(`${user} is not a valid address`);
 
