@@ -2,6 +2,7 @@ const { use, setProofApi } = require("@maticnetwork/maticjs");
 const { Web3ClientPlugin } = require("@maticnetwork/maticjs-web3");
 const { FxPortalClient } = require("@fxportal/maticjs-fxportal");
 const { ethers, Wallet } = require("ethers");
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 const config = require("../../config");
 require("dotenv").config();
 
@@ -15,10 +16,6 @@ const polygonPKey = process.env.PRIVATE_KEY_POLYGON;
 const goerliPKey = process.env.PRIVATE_KEY_GOERLI;
 const projectID = process.env.INFURA_PROJECT_ID;
 
-// connect provider to interact with eth and polygon chain
-const parentProvider = new ethers.providers.InfuraProvider("goerli", projectID);
-const childProvider = new ethers.providers.InfuraProvider("maticmum", projectID);
-
 async function getFxPortalClient(network = "testnet", version = "mumbai") {
     try {
         const fxPortalClient = new FxPortalClient();
@@ -26,13 +23,19 @@ async function getFxPortalClient(network = "testnet", version = "mumbai") {
             network: network,
             version: version,
             parent: {
-                provider: new Wallet(goerliPKey, parentProvider),
+                provider: new HDWalletProvider(
+                    goerliPKey,
+                    `https://goerli.infura.io/v3/${process.env.INFURA_PROJECT_ID}`
+                ),
                 defaultConfig: {
                     from: config.RootUser,
                 },
             },
             child: {
-                provider: new Wallet(polygonPKey, childProvider),
+                provider: new HDWalletProvider(
+                    polygonPKey,
+                    `https://polygon-mumbai.infura.io/v3/${process.env.INFURA_PROJECT_ID}`
+                ),
                 defaultConfig: {
                     from: config.ChildUser,
                 },
@@ -44,5 +47,5 @@ async function getFxPortalClient(network = "testnet", version = "mumbai") {
 }
 
 module.exports = {
-    getFxPortalClient: getFxPortalClient,
+    getFxPortalClient,
 };
