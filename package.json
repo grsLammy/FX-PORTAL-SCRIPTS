@@ -17,6 +17,7 @@
         "@maticnetwork/maticjs-ethers": "^1.0.2",
         "@maticnetwork/maticjs-web3": "^1.0.1",
         "@openzeppelin/contracts": "^4.7.3",
+        "@truffle/hdwallet-provider": "^2.0.14",
         "dotenv": "^16.0.1"
     },
     "lint-staged": {
