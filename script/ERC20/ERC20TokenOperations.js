@@ -1,6 +1,10 @@
 const ps = require("prompt-sync");
 const prompt = ps();
 
+const depositERC20Token = require("./functions/depositERC20Token");
+const mapTokenERC20Token = require("./functions/mapTokenERC20Token");
+const withdrawERC20Token = require("./functions/withdrawERC20Token");
+
 async function ERC20TokenOperations() {
     console.log("\nSelect a type of ERC20 Token Operation:-");
     console.log("1. Deposit ERC20 Token from Root chain to Child chain.");
