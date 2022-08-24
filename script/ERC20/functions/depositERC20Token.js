@@ -39,7 +39,7 @@ const depositERC20Token = async () => {
         const fxERC20RootTunnel_address = config.FxERC20RootTunnel;
 
         // Approve rootToken to be spend by FxERC20RootTunnel contract
-        const rootToken_address = config.RootERC20Token;
+        const rootToken_address = rootToken;
 
         // Fetch your smart contract ABI data from the blockchain
         // Your smart contract must be deployed and verified
