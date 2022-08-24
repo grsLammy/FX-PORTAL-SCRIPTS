@@ -1,4 +1,5 @@
 // Function to fetch your smart contract ABI data
+require("dotenv").config();
 const axios = require("axios").default;
 const polygonExplorerApiKey = process.env.EXPLORER_API_KEY;
 const ethereumExplorerApiKey = process.env.ETHEREUM_EXPLORER_API_KEY;
@@ -7,6 +8,9 @@ async function fetchAbiDataGoerli(contractAddress) {
     // https://api-testnet.polygonscan.com
     // https://api.polygonscan.com
     try {
+        console.log(
+            `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${ethereumExplorerApiKey}`
+        );
         return (
             await axios.get(
                 `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${ethereumExplorerApiKey}`

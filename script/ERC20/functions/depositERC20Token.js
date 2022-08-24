@@ -52,6 +52,9 @@ const depositERC20Token = async () => {
         // Your smart contract must be deployed and verified
         const rootToken_ABIData = await fetchAbiDataGoerli(rootToken_address);
         const rootToken_ABI = rootToken_ABIData.result;
+        console.log("Root Token Address: ", rootToken_address);
+        console.log("Root Token ABI: ", rootToken_ABI);
+        console.log("Provider: ", provider);
 
         // Get contract for RootERC20Token
         const rootToken_contract = new ethers.Contract(rootToken_address, rootToken_ABI, provider);
