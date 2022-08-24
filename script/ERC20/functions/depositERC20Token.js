@@ -19,10 +19,10 @@ const depositERC20Token = async () => {
         if (!user) return console.log("Message cannot be null");
         if (user.length !== 42) return console.log(`${user} is not a valid address`);
 
-        const amountInWEI = prompt("Enter the amount of token that you want to deposit: ");
-        if (!amountInWEI) return console.log("Message cannot be null");
-        if (isNumeric(amountInWEI) === false) return console.log("Invalid input");
-        const amount = amountInWEI * 1e18;
+        const amount = prompt("Enter the amountInWEI of token that you want to deposit: ");
+        if (!amount) return console.log("Message cannot be null");
+        if (isNumeric(amount) === false) return console.log("Invalid input");
+        const amountInWEI = amount * 1e18;
         console.log("\n-----------------------------------------");
         console.log(`INITIATING TOKEN APPROVAL PROCESS`);
         console.log("-----------------------------------------\n");
@@ -52,7 +52,7 @@ const depositERC20Token = async () => {
         const rootTokenConnect = rootToken_contract.connect(signer);
 
         // Call approve function on RootERC20Token contract
-        const txApprove = await rootTokenConnect.approve(fxERC20RootTunnel_address, amount.toString());
+        const txApprove = await rootTokenConnect.approve(fxERC20RootTunnel_address, amountInWEI.toString());
         await txApprove.wait();
         const txHashApprove = txApprove.hash;
         console.log("\nTransaction Hash: ", txHashApprove);
@@ -79,7 +79,7 @@ const depositERC20Token = async () => {
         const fxERC20RootTunnel = fxERC20RootTunnel_contract.connect(signer);
 
         // Call deposit function on FxERC20RootTunnel contract
-        const tx = await fxERC20RootTunnel.deposit(rootToken, user, amount.toString(), 0x0);
+        const tx = await fxERC20RootTunnel.deposit(rootToken, user, amountInWEI.toString(), 0x0);
         await tx.wait();
 
         const txHash = tx.hash;
