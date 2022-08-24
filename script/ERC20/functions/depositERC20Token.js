@@ -3,6 +3,7 @@ const ps = require("prompt-sync");
 const prompt = ps();
 const config = require("../../../config");
 const { fetchAbiDataGoerli } = require("../../utils/fetchAbi");
+const isNumeric = require("../../utils/isNumeric");
 require("dotenv").config();
 
 const projectID = process.env.INFURA_PROJECT_ID;
