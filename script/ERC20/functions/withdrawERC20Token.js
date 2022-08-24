@@ -77,7 +77,7 @@ const withdrawERC20Token = async () => {
 
         return;
     } catch (error) {
-        console.log("Error in withdrawERC20Token", error);
+        console.log("Error at withdrawERC20Token", error);
         process.exit(1);
     }
 };

@@ -42,7 +42,7 @@ const receiveMessage = async (proof) => {
         console.log("\nBurn Proof received on Root chain successfully!");
         return;
     } catch (error) {
-        console.log("Error in receiveMessage", error);
+        console.log("Error at receiveMessage", error);
         process.exit(1);
     }
 };

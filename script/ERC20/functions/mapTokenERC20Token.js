@@ -46,7 +46,7 @@ const depositERC20Token = async () => {
         console.log("\nToken Mapped successfully");
         return;
     } catch (error) {
-        console.log("Error in depositERC20Token", error);
+        console.log("Error at depositERC20Token", error);
         process.exit(1);
     }
 };
