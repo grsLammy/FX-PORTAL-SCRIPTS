@@ -6,10 +6,13 @@ const mapTokenERC20Token = require("./functions/mapTokenERC20Token");
 const withdrawERC20Token = require("./functions/withdrawERC20Token");
 
 async function ERC20TokenOperations() {
-    console.log("\nSelect a type of ERC20 Token Operation:-");
+    console.log("\n-----------------------------------------");
+    console.log("ERC20 TOKEN OPERATIONS");
+    console.log("-----------------------------------------\n");
+    console.log("Select a type of ERC20 Token Operation:-");
     console.log("1. Deposit ERC20 Token from Root chain to Child chain.");
     console.log("2. Map ERC20 Token from Root chain to Child chain.");
-    console.log("3. Withdraw ERC20 Token on Root chain.");
+    console.log("3. Withdraw ERC20 Token on Root chain.\n");
     const choice = prompt("Enter your choice: ");
     console.log("\n");
     if (!choice) return console.log("Choice cannot be null");
