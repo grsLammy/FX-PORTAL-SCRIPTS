@@ -4,7 +4,10 @@ const sendMessageToChild = require("./functions/sendMessageToChild");
 const sendMessageToRoot = require("./functions/sendMessageToRoot");
 
 async function sendMessageOperations() {
-    console.log("\nSelect a type of Simple Message Operation:-");
+    console.log("\n-----------------------------------------");
+    console.log("SIMPLE MESSAGE OPERATION");
+    console.log("-----------------------------------------\n");
+    console.log("Select a type of Simple Message Operation:-");
     console.log("1. Send Message from Root chain to Child chain.");
     console.log("2. Send Message from Child chain to Root chain.\n");
     const choice = prompt("Enter your choice: ");

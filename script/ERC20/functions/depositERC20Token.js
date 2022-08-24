@@ -50,7 +50,7 @@ const depositERC20Token = async () => {
 
         // Fetch your smart contract ABI data from the blockchain
         // Your smart contract must be deployed and verified
-        const rootToken_ABIData = await fetchAbiDataGoerli(rootToken_address).result;
+        const rootToken_ABIData = await fetchAbiDataGoerli(rootToken_address);
         const rootToken_ABI = rootToken_ABIData.result;
 
         // Get contract for RootERC20Token
