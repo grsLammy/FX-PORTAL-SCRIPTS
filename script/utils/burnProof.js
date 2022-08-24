@@ -2,7 +2,7 @@
 
 const { POSClient, use } = require("@maticnetwork/maticjs");
 const { Web3ClientPlugin } = require("@maticnetwork/maticjs-ethers");
-const { Wallet } = require("ethers");
+const { ethers, Wallet } = require("ethers");
 
 use(Web3ClientPlugin);
 
