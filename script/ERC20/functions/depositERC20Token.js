@@ -4,7 +4,6 @@ const prompt = ps();
 const config = require("../../../config");
 const { fetchAbiDataGoerli } = require("../../utils/fetchAbi");
 const isNumeric = require("../../utils/isNumeric");
-const BigNumber = require("bignumber.js");
 require("dotenv").config();
 
 const projectID = process.env.INFURA_PROJECT_ID;
