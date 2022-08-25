@@ -19,8 +19,8 @@ async function withdrawExit() {
 
         // check if the burn hash has been checkpointed
         const isCheckPointedStatus = await fxClient.isCheckPointed(burnTxnHash);
-        console.log("Transaction Hash checkpoint status: ", isCheckPointedStatus);
-        if (!isCheckPointedStatus) return console.log("\nReverting back as hash was not checkpointed yet...");
+        console.log("\nTransaction Hash checkpoint status: ", isCheckPointedStatus);
+        if (!isCheckPointedStatus) return console.log("Reverting back as hash was not checkpointed yet...");
 
         // execute transaction
         console.log("\nProceeding with withdrawExit process...");
