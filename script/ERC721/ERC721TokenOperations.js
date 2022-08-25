@@ -1,6 +1,10 @@
 const ps = require("prompt-sync");
 const prompt = ps();
 
+const depositERC721Token = require("./functions/depositERC721Token");
+const mapTokenERC721Token = require("./functions/mapTokenERC721Token");
+const withdrawERC721Token = require("./functions/withdrawERC721Token");
+
 async function ERC721TokenOperations() {
     console.log("\nSelect a type of ERC721 Token Operation:-");
     console.log("1. Deposit ERC721 Token from Root chain to Child chain.");
