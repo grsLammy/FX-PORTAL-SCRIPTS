@@ -58,9 +58,11 @@ const withdrawToERC721Token = async () => {
         // Connect wallet to contract
         const fxERC721ChildTunnel = fxERC721ChildTunnel_contract.connect(signer);
 
-        const estimatedGasLimit = await fxERC721ChildTunnel.estimateGas.withdraw(
+        const estimatedGasLimit = await fxERC721ChildTunnel.estimateGas.withdrawTo(
             childToken,
+            receiver,
             tokenID.toString(),
+            0x0,
             {
                 gasLimit: 14_999_999,
                 nonce: nonce,
@@ -68,7 +70,7 @@ const withdrawToERC721Token = async () => {
                 maxPriorityFeePerGas: maxPriorityFee,
             }
         );
-        const tx = await fxERC721ChildTunnel.withdrawTo(childToken, receiver, tokenID.toString(), {
+        const tx = await fxERC721ChildTunnel.withdrawTo(childToken, receiver, tokenID.toString(), 0x0, {
             gasLimit: estimatedGasLimit,
             nonce: nonce,
             maxFeePerGas: maxFee,

@@ -63,6 +63,7 @@ const withdrawERC1155Token = async () => {
         const estimatedGasLimit = await fxERC1155ChildTunnel.estimateGas.withdraw(
             childToken,
             amountInWEI.toString(),
+            0x0,
             {
                 gasLimit: 14_999_999,
                 nonce: nonce,
@@ -70,7 +71,7 @@ const withdrawERC1155Token = async () => {
                 maxPriorityFeePerGas: maxPriorityFee,
             }
         );
-        const tx = await fxERC1155ChildTunnel.withdraw(childToken, tokenID, amountInWEI.toString(), {
+        const tx = await fxERC1155ChildTunnel.withdraw(childToken, tokenID, amountInWEI.toString(), 0x0, {
             gasLimit: estimatedGasLimit,
             nonce: nonce,
             maxFeePerGas: maxFee,
