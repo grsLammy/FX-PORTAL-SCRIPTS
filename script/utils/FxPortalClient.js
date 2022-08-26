@@ -14,7 +14,6 @@ setProofApi("https://apis.matic.network/");
 
 const polygonPKey = process.env.PRIVATE_KEY_POLYGON;
 const goerliPKey = process.env.PRIVATE_KEY_GOERLI;
-const projectID = process.env.INFURA_PROJECT_ID;
 
 async function getFxPortalClient(network = "testnet", version = "mumbai") {
     try {

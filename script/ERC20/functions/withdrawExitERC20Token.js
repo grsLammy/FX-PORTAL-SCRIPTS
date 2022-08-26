@@ -1,10 +1,10 @@
 const ps = require("prompt-sync");
 const prompt = ps();
-const config = require("../../config");
-const { getFxPortalClient } = require("./FxPortalClient");
+const config = require("../../../config");
+const { getFxPortalClient } = require("../../utils/FxPortalClient");
 
 const token = config.RootERC20Token;
-async function withdrawExit() {
+async function withdrawExitERC20Token() {
     try {
         console.log("\n-----------------------------------------");
         console.log("INITIATING WITHDRAWEXIT PROCESS");
@@ -23,16 +23,16 @@ async function withdrawExit() {
         if (!isCheckPointedStatus) return console.log("Reverting back as hash was not checkpointed yet...");
 
         // execute transaction
-        console.log("\nProceeding with withdrawExit process...");
+        console.log("\nPROCEEDING WITH THE WITHDRAWEXIT PROCESS...");
         const txResult = await erc20Token.withdrawExit(burnTxnHash);
         const txHash = await txResult.getTransactionHash();
-        console.log("Transaction Hash:", txHash);
+        console.log("\nTransaction Hash:", txHash);
         console.log(`Transaction Details: https://goerli.etherscan.io/tx/${txHash}`);
-        console.log(`\nTokens unlocked on root chain successfully\n`);
+        console.log(`\nTOKENS UNLOCKED ON ROOT CHAIN SUCCESSFULLY\n`);
     } catch (error) {
-        console.log("Error at withdrawExit", error);
+        console.log("Error at withdrawExitERC20Token", error);
         process.exit(1);
     }
 }
 
-module.exports = { withdrawExit };
+module.exports = { withdrawExitERC20Token };
